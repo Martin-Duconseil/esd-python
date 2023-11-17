@@ -59,3 +59,4 @@ exposant_puissance = int(input("Entrez l'exposant de la puissance : "))
 resultat_puissance = puissance(base_puissance, exposant_puissance)
 print(f"\n{base_puissance}^{exposant_puissance} = {resultat_puissance}\n")
 print("Le résultat de", base_puissance,"exposant", exposant_puissance, "est", resultat_puissance, "\n")
+
