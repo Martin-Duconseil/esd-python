@@ -6,13 +6,16 @@
 
 Welcome to the "esd-python" repository! This collection of exercises was completed during my first year in the Data Marketing Master's Degree program, focusing on Python programming.
 
-## Project Structure 💻
+## Projects 💻
 
-- `/exercise_1`
-- `/exercise_2`
-- ...
+- <a href="https://github.com/Martin-Duconseil/esd-python/tree/main/exercices%2010-17">`/exercises_10-17`</a>
+- <a href="https://github.com/Martin-Duconseil/esd-python/tree/main/exercices%2017-11">`/exercises_17-11`</a>
+- <a href="https://github.com/Martin-Duconseil/esd-python/tree/main/exercices%2024-11">`/exercises_17-11`</a>
+- <a href="https://github.com/Martin-Duconseil/esd-python/tree/main/the%20cat%20game">`/the_cat_game`</a>
+- <a href="https://github.com/Martin-Duconseil/esd-python/tree/main/bonus">`/bonus`</a>
 
 ## Technology Used 👨‍💻
 
 - Python
+- Pygame
 
