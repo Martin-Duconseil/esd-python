@@ -15,6 +15,8 @@ class cat:
         self.direction = Vector2(0,0)
         self.new_block = False
 
+        # Graphics
+
         self.head_up = pygame.image.load('the cat game/graphics/head_up.png').convert_alpha()
         self.head_down = pygame.image.load('the cat game/graphics/head_down.png').convert_alpha()
         self.head_right = pygame.image.load('the cat game/graphics/head_right.png').convert_alpha()
@@ -33,8 +35,12 @@ class cat:
         self.body_br = pygame.image.load('the cat game/graphics/body_br.png').convert_alpha()
         self.body_bl = pygame.image.load('the cat game/graphics/body_bl.png').convert_alpha()
 
+        # Sound
+
         self.crunch_sound = pygame.mixer.Sound('the cat game/sound/crunch.wav')
     
+    # Draw the cat on the screen
+
     def draw_cat(self):
         self.update_head_graphics()
         self.update_tail_graphics()
@@ -67,6 +73,8 @@ class cat:
                     elif previous_block.x == 1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == 1:
                         screen.blit(self.body_br,block_rect)
 
+    # Update the head graphics
+
     def update_head_graphics(self):
         head_relation = self.body[1] - self.body[0]
         if head_relation == Vector2(1,0): self.head = self.head_left
@@ -74,12 +82,16 @@ class cat:
         elif head_relation == Vector2(0,1): self.head = self.head_up
         elif head_relation == Vector2(0,-1): self.head = self.head_down
 
+    # Update the tail graphics
+
     def update_tail_graphics(self):
         tail_relation = self.body[-2] - self.body[-1]
         if tail_relation == Vector2(1,0): self.tail = self.tail_left
         elif tail_relation == Vector2(-1,0): self.tail = self.tail_right
         elif tail_relation == Vector2(0,1): self.tail = self.tail_up
         elif tail_relation == Vector2(0,-1): self.tail = self.tail_down
+
+    # Move the cat - Directions
 
     def move_cat(self):
         if self.new_block == True:
@@ -92,11 +104,17 @@ class cat:
             body_copy.insert(0,body_copy[0] + self.direction)
             self.body = body_copy[:]
 
+    # Add a block to the cat
+
     def add_block(self):
         self.new_block = True
 
+    # Play the crunch sound
+
     def play_crunch_sound(self):
         self.crunch_sound.play()
+
+    # Reset the cat
 
     def reset(self):
         self.body = [Vector2(5,10),Vector2(4,10),Vector2(3,10)]
@@ -108,6 +126,8 @@ class food:
     def __init__(self):
         self.randomize()
     
+    # Draw the food on the screen
+
     def draw_food(self):
         if self.food_type == "fish":
             food_rect = pygame.Rect(int(self.pos.x * cell_size), int(self.pos.y * cell_size), cell_size, cell_size)
@@ -115,6 +135,8 @@ class food:
         elif self.food_type == "steak":
             food_rect = pygame.Rect(int(self.pos.x * cell_size), int(self.pos.y * cell_size), cell_size, cell_size)
             screen.blit(steak, food_rect)
+
+    # Randomize the food position
 
     def randomize(self):
         self.x = random.randint(0, cell_number - 1)
@@ -163,6 +185,8 @@ class MAIN:
     def game_over(self):
         self.cat.reset()
 
+    # Draw the tiles on the ground
+
     def draw_ground(self):
         ground_color = (37,37,37)
         for row in range(cell_number):
@@ -176,6 +200,8 @@ class MAIN:
                     if col % 2 != 0:
                         ground_rect = pygame.Rect(col * cell_size,row * cell_size,cell_size,cell_size)
                         pygame.draw.rect(screen,ground_color,ground_rect)
+
+    # Draw the score on the screen
 
     def draw_score(self):
         score_text = str(len(self.cat.body) - 3)
@@ -213,17 +239,20 @@ BG = pygame.image.load('the cat game/graphics/background_main_menu.png').convert
 SCREEN_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREEN_UPDATE,150)
 
-def get_font(size): # Returns Press-Start-2P in the desired size
+def get_font(size): 
     return pygame.font.Font("the cat game/font/days-one.regular.ttf", size)
 
 main_game = MAIN()
 
-def play(): # Play Screen
+# --------| Play Loop |---------- #
+
+def play():
     pygame.display.set_caption('Play')
 
     while True:
         
         # Draw all our elements (Background, cat, food, score, etc.)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -247,16 +276,24 @@ def play(): # Play Screen
                     main_game.game_over()
                     main_menu()
                 
+        # Gray background
+                    
+        screen.fill((72,72,72))
 
-        screen.fill((72,72,72)) # Fill the screen with a gray color
+        # Draw the elements
+
         main_game.draw_elements()
         pygame.display.update()
-        clock.tick(60) # Limit the frame rate to 60 fps
-    
 
+        # Limit the frame rate to 60 fps
+
+        clock.tick(60) 
+    
         pygame.display.update()
 
-def main_menu(): # Main Menu Screen
+# --------| Main Menu |---------- #
+
+def main_menu():
     while True:
         SCREEN.blit(BG, (0, 0))
 
@@ -282,7 +319,6 @@ def main_menu(): # Main Menu Screen
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()
-                
 
         pygame.display.update()
 
